@@ -87,3 +87,6 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+.crossbar/key.priv
+.crossbar/key.pub
