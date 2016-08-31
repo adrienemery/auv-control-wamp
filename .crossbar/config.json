@@ -19,12 +19,13 @@
                      "name":"anonymous",
                      "permissions":[
                         {
-                           "uri":"com.auv.status",
+                           "uri":"com.auv.authenticate",
+                           "match":"exact",
                            "allow":{
-                              "call":true,
+                              "call":false,
                               "register":true,
-                              "publish":true,
-                              "subscribe":true
+                              "publish":false,
+                              "subscribe":false
                            }
                         }
                      ]
@@ -69,6 +70,10 @@
                           "ticket":{
                              "type":"dynamic",
                              "authenticator":"com.auv.authenticate"
+                          },
+                          "anonymous": {
+                              "type": "static",
+                              "role": "anonymous"
                           }
                        }
                     }
