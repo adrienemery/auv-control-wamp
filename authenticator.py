@@ -1,4 +1,3 @@
-import envitro
 import logging
 import requests
 
