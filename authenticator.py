@@ -1,3 +1,4 @@
+import envitro
 import logging
 import requests
 
@@ -8,7 +9,8 @@ from autobahn.wamp.exception import ApplicationError
 
 logger = logging.getLogger(__name__)
 AUTH_ID = 'authenticator'
-
+TOKEN_VALIDATION_URL = envitro.str('TOKEN_VALIDATION_URL',
+                                   'http://0.0.0.0:8000/api/auth/validate-token/')
 
 class AuthenticatorSession(ApplicationSession):
 
@@ -22,7 +24,7 @@ class AuthenticatorSession(ApplicationSession):
         def authenticate(realm, authid, details):
             ticket = details['ticket']
             headers = {'Authorization': 'Token {}'.format(ticket)}
-            response = requests.post('http://0.0.0.0:8000/api/auth/validate-token/',
+            response = requests.post(TOKEN_VALIDATION_URL,
                                      headers=headers)
             logger.debug(response)
             if response.status_code == 200:

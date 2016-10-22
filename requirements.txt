@@ -6,6 +6,7 @@ cffi==1.7.0
 click==6.6
 crossbar==0.15.0
 cryptography==1.4
+envitro==0.4.2
 idna==2.1
 Jinja2==2.8
 lmdb==0.89
