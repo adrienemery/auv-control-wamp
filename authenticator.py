@@ -9,7 +9,7 @@ from autobahn.wamp.exception import ApplicationError
 
 logger = logging.getLogger(__name__)
 AUTH_ID = 'authenticator'
-TOKEN_VALIDATION_URL = os.getenv.('TOKEN_VALIDATION_URL')
+TOKEN_VALIDATION_URL = os.getenv('TOKEN_VALIDATION_URL')
 
 class AuthenticatorSession(ApplicationSession):
 
