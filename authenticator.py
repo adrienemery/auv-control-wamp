@@ -14,10 +14,6 @@ class AuthenticatorSession(ApplicationSession):
 
     log = Logger()
 
-    def onConnect(self):
-        self.log.info('Connecting to f{self.config.realm} as {AUTH_ID}')
-        self.join(realm=self.config.realm, authmethods=['ticket'], authid=AUTH_ID)
-
     @inlineCallbacks
     def onJoin(self, details):
 
