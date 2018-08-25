@@ -7,7 +7,6 @@ from twisted.logger import Logger
 from autobahn.twisted.wamp import ApplicationSession, ApplicationRunner
 from autobahn.wamp.exception import ApplicationError
 
-AUTH_ID = 'authenticator'
 TOKEN_VALIDATION_URL = os.getenv('TOKEN_VALIDATION_URL')
 
 class AuthenticatorSession(ApplicationSession):
@@ -19,9 +18,9 @@ class AuthenticatorSession(ApplicationSession):
 
         def authenticate(realm, authid, details):
             ticket = details['ticket']
-            headers = {'Authorization': 'Token {}'.format(ticket)}
-            response = requests.post(TOKEN_VALIDATION_URL, headers=headers)
-            logger.debug(response)
+            payload = {'token': ticket, 'authid': authid}
+            response = requests.post(TOKEN_VALIDATION_URL, json=payload)
+            self.log.debug(response)
             if response.status_code == 200:
                 # TODO store roles in database for different components
                 # return default role
@@ -29,7 +28,7 @@ class AuthenticatorSession(ApplicationSession):
             else:
                 raise ApplicationError("com.auv.invalid_ticket",
                                        "could not authenticate session - invalid ticket "
-                                       f"'{ticket}' for principal {authid}")
+                                       f"'{ticket}' for authid {authid}")
 
         # register authenticate method
         try:

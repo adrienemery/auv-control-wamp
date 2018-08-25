@@ -1,0 +1,86 @@
+{
+   "controller": {},
+   "version": 2,
+   "workers": [
+      {
+         "components": [
+            {
+               "classname": "authenticator.AuthenticatorSession",
+               "realm": "realm1",
+               "role": "authenticator",
+               "type": "class"
+            }
+         ],
+         "options": {
+            "pythonpath": [
+               ".."
+            ]
+         },
+         "realms": [
+            {
+               "name": "realm1",
+               "roles": [
+                  {
+                     "name": "default",
+                     "permissions": [
+                        {
+                           "allow": {
+                              "call": true,
+                              "publish": true,
+                              "register": true,
+                              "subscribe": true
+                           },
+                           "uri": "*"
+                        }
+                     ]
+                  },
+                  {
+                     "name": "authenticator",
+                     "permissions": [
+                        {
+                           "allow": {
+                              "call": false,
+                              "publish": false,
+                              "register": true,
+                              "subscribe": false
+                           },
+                           "cache": true,
+                           "disclose": {
+                              "caller": false,
+                              "publisher": false
+                           },
+                           "match": "exact",
+                           "uri": "com.auv.authenticate"
+                        }
+                     ]
+                  }
+               ]
+            }
+         ],
+         "transports": [
+            {
+               "endpoint": {
+                  "port": "$PORT",
+                  "type": "tcp"
+               },
+               "paths": {
+                  "ws": {
+                     "auth": {
+                        "ticket": {
+                           "authenticator": "com.auv.authenticate",
+                           "type": "dynamic"
+                        }
+                     },
+                     "serializers": [
+                        "json"
+                     ],
+                     "type": "websocket"
+                  }
+               },
+               "type": "web"
+            }
+         ],
+         "type": "router"
+      }
+   ]
+}

@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  crossbar:
+    image: crossbario/crossbar
+    ports:
+      - "9090:8080"
+    volumes:
+      - .:/node
+    environment:
+      - PORT=8080
+      - TOKEN_VALIDATION_URL=http://host.docker.internal:8000/api/auth/validate-token
+    
